@@ -1,3 +1,4 @@
+using Domain.DTO;
 using Domain.Model;
 using Microsoft.AspNetCore.Mvc;
 using Services;
@@ -15,13 +16,13 @@ namespace API.Controllers
         }
 
         [HttpGet("stock")]
-        public async Task<ActionResult<ServiceResponse<List<Product>>>> GetEntireStock()
+        public async Task<ActionResult<ServiceResponse<List<GetProductDTO>>>> GetEntireStock()
         {
             return Ok(await _productService.GetEntireStock());
         }
         
         [HttpGet("stock/{id}")]
-        public async Task<ActionResult<ServiceResponse<Product>>> GetEntireStock(int id)
+        public async Task<ActionResult<ServiceResponse<GetProductDTO>>> GetEntireStock(int id)
         {
             var result = await _productService.GetProductById(id);
 
@@ -32,7 +33,7 @@ namespace API.Controllers
         }
         
         [HttpDelete("delete/{id}")]
-        public async Task<ActionResult<ServiceResponse<List<Product>>>> DeleteById(int id)
+        public async Task<ActionResult<ServiceResponse<List<GetProductDTO>>>> DeleteById(int id)
         {
             var result = await _productService.RemoveProduct(id);
 
@@ -43,13 +44,13 @@ namespace API.Controllers
         }
 
         [HttpPost("add-product")]
-        public async Task<ActionResult<ServiceResponse<List<Product>>>> AddNewProduct(Product newProduct)
+        public async Task<ActionResult<ServiceResponse<List<GetProductDTO>>>> AddNewProduct(AddProductDTO newProduct)
         {
             return await _productService.AddNewProduct(newProduct);
         }
 
         [HttpPut("update-product")]
-        public async Task<ActionResult<ServiceResponse<List<Product>>>> UpdateProduct(Product updatedProduct)
+        public async Task<ActionResult<ServiceResponse<List<GetProductDTO>>>> UpdateProduct(UpdateProductDTO updatedProduct)
         {
             var result = await _productService.UpdateProduct(updatedProduct);
 

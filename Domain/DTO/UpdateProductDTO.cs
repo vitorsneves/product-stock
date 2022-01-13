@@ -1,6 +1,6 @@
 namespace Domain.DTO
 {
-    public class GetProductDTO
+    public class UpdateProductDTO
     {
         public int Id { get; set; }
         public string? Description { get; set; }
