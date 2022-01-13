@@ -13,9 +13,9 @@ namespace Services
 
         private List<Product> stock = new List<Product>()
         {
-            new Product() {Description = "brigadeiro"},
-            new Product() {Description = "chocolate"},
-            new Product() {Description = "doce de leite"}
+            new Product() {Description = "brigadeiro", Id = 0},
+            new Product() {Description = "chocolate", Id = 1},
+            new Product() {Description = "doce de leite", Id = 2}
         };
 
         public async Task<ServiceResponse<List<Product>>> GetEntireStock()
@@ -36,20 +36,48 @@ namespace Services
 
             return finalResult;
         }
-        public async Task<List<Product>> AddNewProduct(Product newProduct)
+        public async Task<ServiceResponse<List<Product>>> AddNewProduct(Product newProduct)
         {
-            throw new NotImplementedException();
+            stock.Add(newProduct);
+
+            return WrapProductList(stock);
         }
 
 
-        public async Task<List<Product>> RemoveProduct(int id)
+        public async Task<ServiceResponse<List<Product>>> RemoveProduct(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Product deletedProduct = stock.First(o => o.Id == id);
+                stock.Remove(deletedProduct);
+            }
+            catch (Exception)
+            {
+                var finalResult = WrapProductList(stock);
+                finalResult.Message = "Produto não encontrado.";
+                finalResult.Success = false;
+                return finalResult;
+            }
+
+            return WrapProductList(stock);
         }
 
-        public async Task<List<Product>> UpdateProduct(Product updatedProduct)
+        public async Task<ServiceResponse<List<Product>>> UpdateProduct(Product updatedProduct)
         {
-            throw new NotImplementedException();
+            try
+            {
+                int oldProductPosition = (stock.First(o => o.Id == updatedProduct.Id)).Id;
+                stock[oldProductPosition] = updatedProduct;
+            }
+            catch (Exception)
+            {
+                var finalResult = WrapProductList(stock);
+                finalResult.Message = "Produto não encontrado.";
+                finalResult.Success = false;
+                return finalResult;
+            }
+
+            return WrapProductList(stock);
         }
 
         private ServiceResponse<Product> WrapProduct(Product? product)

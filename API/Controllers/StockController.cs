@@ -23,8 +23,40 @@ namespace API.Controllers
         [HttpGet("stock/{id}")]
         public async Task<ActionResult<ServiceResponse<Product>>> GetEntireStock(int id)
         {
-            return Ok(await _productService.GetProductById(id));
+            var result = await _productService.GetProductById(id);
+
+            if(result.Success)
+                return Ok(result);
+
+            return NotFound(result);
         }
         
+        [HttpDelete("delete/{id}")]
+        public async Task<ActionResult<ServiceResponse<List<Product>>>> DeleteById(int id)
+        {
+            var result = await _productService.RemoveProduct(id);
+
+            if(result.Success)
+                return Ok(result);
+
+            return NotFound(result);
+        }
+
+        [HttpPost("add-product")]
+        public async Task<ActionResult<ServiceResponse<List<Product>>>> AddNewProduct(Product newProduct)
+        {
+            return await _productService.AddNewProduct(newProduct);
+        }
+
+        [HttpPut("update-product")]
+        public async Task<ActionResult<ServiceResponse<List<Product>>>> UpdateProduct(Product updatedProduct)
+        {
+            var result = await _productService.UpdateProduct(updatedProduct);
+
+            if(result.Success)
+                return Ok(result);
+
+            return NotFound(result);
+        }
     }
 }

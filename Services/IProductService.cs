@@ -6,8 +6,8 @@ namespace Services
     {
         public Task<ServiceResponse<Product>> GetProductById(int id);
         public Task<ServiceResponse<List<Product>>> GetEntireStock();
-        public Task<List<Product>> AddNewProduct(Product newProduct);
-        public Task<List<Product>> UpdateProduct(Product updatedProduct);
-        public Task<List<Product>> RemoveProduct(int id);
+        public Task<ServiceResponse<List<Product>>> AddNewProduct(Product newProduct);
+        public Task<ServiceResponse<List<Product>>> UpdateProduct(Product updatedProduct);
+        public Task<ServiceResponse<List<Product>>> RemoveProduct(int id);
     }
 }
