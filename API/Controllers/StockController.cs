@@ -16,13 +16,13 @@ namespace API.Controllers
             _productService = productService;
         }
 
-        [HttpGet("stock")]
+        [HttpGet()]
         public async Task<ActionResult<ServiceResponse<List<GetProductDTO>>>> GetEntireStock()
         {
             return Ok(await _productService.GetEntireStock());
         }
         
-        [HttpGet("stock/{id}")]
+        [HttpGet("{id}")]
         public async Task<ActionResult<ServiceResponse<GetProductDTO>>> GetEntireStock(int id)
         {
             var result = await _productService.GetProductById(id);
