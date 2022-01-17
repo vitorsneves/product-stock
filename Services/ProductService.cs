@@ -16,13 +16,6 @@ namespace Services
             _context = context;
         }
 
-        // private List<Product> stock = new List<Product>()
-        // {
-        //     new Product() {Description = "brigadeiro", Id = 0},
-        //     new Product() {Description = "chocolate", Id = 1},
-        //     new Product() {Description = "doce de leite", Id = 2}
-        // };
-
         public async Task<ServiceResponse<List<GetProductDTO>>> GetEntireStock()
         {
             return WrapProductList(await _context.Products.Select(
